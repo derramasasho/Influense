@@ -1,10 +1,11 @@
 'use client'
 
 import { Card, CardContent, CardHeader, CardTitle, Button } from '@influencer-platform/ui'
-import { DollarSign, Calendar, Package, Check, X } from 'lucide-react'
+import { DollarSign, Calendar, Package, Check, X, CreditCard } from 'lucide-react'
 import { createClient } from '@/app/lib/supabase/client'
 import toast from 'react-hot-toast'
 import { useState } from 'react'
+import { PaymentModal } from './payment-modal'
 
 interface DealProposalCardProps {
   proposal: any
@@ -20,6 +21,7 @@ export function DealProposalCard({
   conversationId 
 }: DealProposalCardProps) {
   const [isUpdating, setIsUpdating] = useState(false)
+  const [showPaymentModal, setShowPaymentModal] = useState(false)
   const supabase = createClient()
 
   const handleResponse = async (action: 'accept' | 'reject') => {
@@ -70,7 +72,8 @@ export function DealProposalCard({
   }
 
   return (
-    <Card className="max-w-sm">
+    <>
+      <Card className="max-w-sm">
       <CardHeader className="pb-3">
         <CardTitle className="text-base flex items-center justify-between">
           <span>Deal Proposal</span>
@@ -155,7 +158,46 @@ export function DealProposalCard({
             </Button>
           </div>
         )}
+
+        {/* Payment button for accepted deals (brands only) */}
+        {userType === 'brand' && proposal.status === 'accepted' && !proposal.payment_completed && (
+          <div className="pt-2 border-t">
+            <Button
+              size="sm"
+              className="w-full"
+              onClick={() => setShowPaymentModal(true)}
+            >
+              <CreditCard className="h-4 w-4 mr-1" />
+              Pay {proposal.budget} BGN
+            </Button>
+          </div>
+        )}
+
+        {/* Payment status */}
+        {proposal.payment_completed && (
+          <div className="pt-2 border-t">
+            <p className="text-sm text-green-600 dark:text-green-400 flex items-center">
+              <Check className="h-4 w-4 mr-1" />
+              Payment completed
+            </p>
+          </div>
+        )}
       </CardContent>
     </Card>
+
+    {/* Payment Modal */}
+    {showPaymentModal && (
+      <PaymentModal
+        isOpen={showPaymentModal}
+        onClose={() => setShowPaymentModal(false)}
+        dealProposal={proposal}
+        onSuccess={() => {
+          setShowPaymentModal(false)
+          // Refresh the page to update payment status
+          window.location.reload()
+        }}
+      />
+    )}
+  </>
   )
 }
