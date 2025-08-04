@@ -28,6 +28,11 @@ const creatorNavItems = [
     icon: MessageSquare,
   },
   {
+    title: 'Messages',
+    href: '/dashboard/messages',
+    icon: MessageSquare,
+  },
+  {
     title: 'Earnings',
     href: '/dashboard/creator/earnings',
     icon: DollarSign,

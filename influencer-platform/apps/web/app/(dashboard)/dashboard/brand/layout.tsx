@@ -34,7 +34,7 @@ const brandNavItems = [
   },
   {
     title: 'Messages',
-    href: '/dashboard/brand/messages',
+    href: '/dashboard/messages',
     icon: MessageSquare,
   },
   {

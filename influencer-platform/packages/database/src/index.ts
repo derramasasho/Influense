@@ -10,5 +10,8 @@ export * from './schemas/brand'
 // Campaign schemas
 export * from './schemas/campaign'
 
+// Message schemas
+export * from './schemas/message'
+
 // Re-export Supabase client
 export { createClient } from '@supabase/supabase-js'
