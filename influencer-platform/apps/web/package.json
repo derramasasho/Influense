@@ -53,6 +53,7 @@
     "eslint-config-next": "14.2.0",
     "@influencer-platform/ui": "workspace:*",
     "@influencer-platform/database": "workspace:*",
-    "@influencer-platform/tsconfig": "workspace:*"
+    "@influencer-platform/tsconfig": "workspace:*",
+    "@influencer-platform/eslint-config": "workspace:*"
   }
 }

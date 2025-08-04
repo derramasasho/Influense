@@ -1,0 +1,10 @@
+{
+  "extends": "@influencer-platform/tsconfig/base.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@influencer-platform/ui": ["./packages/ui/src"],
+      "@influencer-platform/database": ["./packages/database/src"]
+    }
+  }
+}
