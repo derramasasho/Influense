@@ -1,10 +1,10 @@
 'use client'
 
-import { useState } from 'react'
+import { Button } from '@influencer-platform/ui'
+import * as Popover from '@radix-ui/react-popover'
 import { Filter, ChevronDown } from 'lucide-react'
 import { useRouter, useSearchParams } from 'next/navigation'
-import * as Popover from '@radix-ui/react-popover'
-import { Button } from '@influencer-platform/ui'
+import { useState } from 'react'
 
 const categories = [
   { id: 'fashion', label: 'Fashion' },
@@ -67,7 +67,7 @@ export function CampaignFilters() {
       {/* Category Filter */}
       <Popover.Root>
         <Popover.Trigger asChild>
-          <Button variant="outline" size="sm" className="gap-2">
+          <Button className="gap-2" size="sm" variant="outline">
             {selectedCategory 
               ? categories.find(c => c.id === selectedCategory)?.label 
               : 'Category'
@@ -82,20 +82,20 @@ export function CampaignFilters() {
           >
             <div className="space-y-1">
               <button
-                onClick={() => handleFilterChange('category', null)}
                 className="w-full text-left px-3 py-2 text-sm rounded-lg hover:bg-muted transition-colors"
+                onClick={() => handleFilterChange('category', null)}
               >
                 All Categories
               </button>
               {categories.map((category) => (
                 <button
                   key={category.id}
-                  onClick={() => handleFilterChange('category', category.id)}
                   className={`w-full text-left px-3 py-2 text-sm rounded-lg transition-colors ${
                     selectedCategory === category.id
                       ? 'bg-primary text-primary-foreground'
                       : 'hover:bg-muted'
                   }`}
+                  onClick={() => handleFilterChange('category', category.id)}
                 >
                   {category.label}
                 </button>
@@ -108,7 +108,7 @@ export function CampaignFilters() {
       {/* Platform Filter */}
       <Popover.Root>
         <Popover.Trigger asChild>
-          <Button variant="outline" size="sm" className="gap-2">
+          <Button className="gap-2" size="sm" variant="outline">
             {selectedPlatform 
               ? platforms.find(p => p.id === selectedPlatform)?.label 
               : 'Platform'
@@ -123,20 +123,20 @@ export function CampaignFilters() {
           >
             <div className="space-y-1">
               <button
-                onClick={() => handleFilterChange('platform', null)}
                 className="w-full text-left px-3 py-2 text-sm rounded-lg hover:bg-muted transition-colors"
+                onClick={() => handleFilterChange('platform', null)}
               >
                 All Platforms
               </button>
               {platforms.map((platform) => (
                 <button
                   key={platform.id}
-                  onClick={() => handleFilterChange('platform', platform.id)}
                   className={`w-full text-left px-3 py-2 text-sm rounded-lg transition-colors ${
                     selectedPlatform === platform.id
                       ? 'bg-primary text-primary-foreground'
                       : 'hover:bg-muted'
                   }`}
+                  onClick={() => handleFilterChange('platform', platform.id)}
                 >
                   {platform.label}
                 </button>
@@ -149,7 +149,7 @@ export function CampaignFilters() {
       {/* Budget Filter */}
       <Popover.Root>
         <Popover.Trigger asChild>
-          <Button variant="outline" size="sm" className="gap-2">
+          <Button className="gap-2" size="sm" variant="outline">
             {selectedBudget 
               ? budgetRanges.find(b => b.id === selectedBudget)?.label 
               : 'Budget'
@@ -164,20 +164,20 @@ export function CampaignFilters() {
           >
             <div className="space-y-1">
               <button
-                onClick={() => handleFilterChange('budget', null)}
                 className="w-full text-left px-3 py-2 text-sm rounded-lg hover:bg-muted transition-colors"
+                onClick={() => handleFilterChange('budget', null)}
               >
                 Any Budget
               </button>
               {budgetRanges.map((range) => (
                 <button
                   key={range.id}
-                  onClick={() => handleFilterChange('budget', range.id)}
                   className={`w-full text-left px-3 py-2 text-sm rounded-lg transition-colors ${
                     selectedBudget === range.id
                       ? 'bg-primary text-primary-foreground'
                       : 'hover:bg-muted'
                   }`}
+                  onClick={() => handleFilterChange('budget', range.id)}
                 >
                   {range.label}
                 </button>
@@ -190,10 +190,10 @@ export function CampaignFilters() {
       {/* Clear Filters */}
       {activeFiltersCount > 0 && (
         <Button
-          variant="ghost"
-          size="sm"
-          onClick={clearFilters}
           className="gap-2"
+          size="sm"
+          variant="ghost"
+          onClick={clearFilters}
         >
           <Filter className="h-3 w-3" />
           Clear ({activeFiltersCount})

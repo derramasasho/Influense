@@ -1,7 +1,6 @@
 'use client'
 
-import { useState } from 'react'
-import Link from 'next/link'
+import { zodResolver } from '@hookform/resolvers/zod'
 import { motion } from 'framer-motion'
 import { 
   ArrowLeft, 
@@ -13,12 +12,13 @@ import {
   AlertCircle,
   ArrowRight
 } from 'lucide-react'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { z } from 'zod'
-import { createClient } from '@/app/lib/supabase/client'
+import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import { useState } from 'react'
+import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
+import { z } from 'zod'
+import { createClient } from '../../lib/supabase/client'
 
 const loginSchema = z.object({
   email: z.string().email('Please enter a valid email'),
@@ -83,14 +83,14 @@ export default function LoginPage() {
       {/* Left Panel - Form */}
       <div className="flex-1 flex items-center justify-center p-8 lg:p-12">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
           className="w-full max-w-md"
+          initial={{ opacity: 0, y: 20 }}
+          transition={{ duration: 0.5 }}
         >
           <Link 
-            href="/" 
-            className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground mb-8 transition-colors"
+            className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground mb-8 transition-colors" 
+            href="/"
           >
             <ArrowLeft className="h-4 w-4 mr-2" />
             Back to home
@@ -108,7 +108,7 @@ export default function LoginPage() {
             </p>
           </div>
 
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+          <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
             {/* Email */}
             <div>
               <label className="block text-sm font-medium mb-2">Email</label>
@@ -117,9 +117,9 @@ export default function LoginPage() {
                 <input
                   type="email"
                   {...register('email')}
+                  autoComplete="email"
                   className="input-premium w-full pl-11"
                   placeholder="maria@example.com"
-                  autoComplete="email"
                 />
               </div>
               {errors.email && (
@@ -134,7 +134,7 @@ export default function LoginPage() {
             <div>
               <div className="flex items-center justify-between mb-2">
                 <label className="block text-sm font-medium">Password</label>
-                <Link href="/forgot-password" className="text-sm text-primary hover:underline">
+                <Link className="text-sm text-primary hover:underline" href="/forgot-password">
                   Forgot password?
                 </Link>
               </div>
@@ -143,14 +143,14 @@ export default function LoginPage() {
                 <input
                   type={showPassword ? 'text' : 'password'}
                   {...register('password')}
+                  autoComplete="current-password"
                   className="input-premium w-full pl-11 pr-11"
                   placeholder="••••••••"
-                  autoComplete="current-password"
                 />
                 <button
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
                 >
                   {showPassword ? (
                     <EyeOff className="h-4 w-4" />
@@ -169,9 +169,9 @@ export default function LoginPage() {
 
             {/* Submit Button */}
             <button
-              type="submit"
-              disabled={isLoading}
               className="btn-premium w-full"
+              disabled={isLoading}
+              type="submit"
             >
               {isLoading ? (
                 <div className="flex items-center justify-center">
@@ -195,28 +195,28 @@ export default function LoginPage() {
 
             {/* Google Sign In */}
             <button
-              type="button"
               className="btn-glass w-full"
+              type="button"
               onClick={() => {
                 toast('Google sign in coming soon!', { icon: '🚀' })
               }}
             >
               <svg className="h-5 w-5 mr-2" viewBox="0 0 24 24">
                 <path
-                  fill="currentColor"
                   d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
+                  fill="currentColor"
                 />
                 <path
-                  fill="currentColor"
                   d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+                  fill="currentColor"
                 />
                 <path
-                  fill="currentColor"
                   d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
+                  fill="currentColor"
                 />
                 <path
-                  fill="currentColor"
                   d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
+                  fill="currentColor"
                 />
               </svg>
               Continue with Google
@@ -224,8 +224,8 @@ export default function LoginPage() {
 
             {/* Magic Link */}
             <button
-              type="button"
               className="btn-glass w-full"
+              type="button"
               onClick={() => {
                 toast('Magic link login coming soon!', { icon: '✨' })
               }}
@@ -237,7 +237,7 @@ export default function LoginPage() {
             {/* Sign Up Link */}
             <p className="text-center text-sm text-muted-foreground">
               Don't have an account?{' '}
-              <Link href="/signup" className="text-primary hover:underline font-medium">
+              <Link className="text-primary hover:underline font-medium" href="/signup">
                 Sign up
               </Link>
             </p>
@@ -255,10 +255,10 @@ export default function LoginPage() {
         
         <div className="relative z-10 flex items-center justify-center w-full">
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
             className="text-center text-white p-12"
+            initial={{ opacity: 0, scale: 0.9 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
           >
             <h2 className="text-4xl font-display font-bold mb-4">
               Welcome Back to Bulgaria's #1 Creator Platform

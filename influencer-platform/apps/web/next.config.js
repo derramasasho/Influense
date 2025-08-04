@@ -17,7 +17,7 @@ const nextConfig = {
   i18n: {
     locales: ['en', 'bg'],
     defaultLocale: 'bg',
-    localeDetection: true,
+    localeDetection: false,
   },
   experimental: {
     serverActions: {

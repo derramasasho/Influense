@@ -65,12 +65,12 @@ export function InfluencerDistribution({ applications }: InfluencerDistributionP
 
     return (
       <text 
-        x={x} 
-        y={y} 
+        className="text-xs font-medium" 
+        dominantBaseline="central" 
         fill="white" 
         textAnchor={x > cx ? 'start' : 'end'} 
-        dominantBaseline="central"
-        className="text-xs font-medium"
+        x={x}
+        y={y}
       >
         {`${(percent * 100).toFixed(0)}%`}
       </text>
@@ -78,17 +78,17 @@ export function InfluencerDistribution({ applications }: InfluencerDistributionP
   }
 
   return (
-    <ResponsiveContainer width="100%" height={300}>
+    <ResponsiveContainer height={300} width="100%">
       <PieChart>
         <Pie
-          data={chartData}
           cx="50%"
           cy="50%"
-          labelLine={false}
-          label={renderCustomizedLabel}
-          outerRadius={80}
-          fill="#8884d8"
+          data={chartData}
           dataKey="value"
+          fill="#8884d8"
+          label={renderCustomizedLabel}
+          labelLine={false}
+          outerRadius={80}
         >
           {chartData.map((entry, index) => (
             <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
@@ -102,11 +102,11 @@ export function InfluencerDistribution({ applications }: InfluencerDistributionP
           }}
         />
         <Legend 
-          verticalAlign="bottom"
-          height={36}
           formatter={(value: string) => (
             <span style={{ fontSize: '12px' }}>{value}</span>
           )}
+          height={36}
+          verticalAlign="bottom"
         />
       </PieChart>
     </ResponsiveContainer>

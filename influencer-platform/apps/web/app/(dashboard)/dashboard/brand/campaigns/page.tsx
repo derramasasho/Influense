@@ -1,5 +1,3 @@
-import { createClient } from '@/app/lib/supabase/server'
-import { getUserProfile } from '@/app/lib/auth/utils'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, Button } from '@influencer-platform/ui'
 import { 
   Plus,
@@ -15,6 +13,8 @@ import {
   Archive
 } from 'lucide-react'
 import Link from 'next/link'
+import { getUserProfile } from '@/app/lib/auth/utils'
+import { createClient } from '@/app/lib/supabase/server'
 
 export default async function BrandCampaignsPage() {
   const supabase = createClient()

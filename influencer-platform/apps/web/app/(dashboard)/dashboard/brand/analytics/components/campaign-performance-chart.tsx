@@ -1,5 +1,6 @@
 'use client'
 
+import { format, parseISO, startOfMonth } from 'date-fns'
 import { useMemo } from 'react'
 import {
   Bar,
@@ -11,7 +12,6 @@ import {
   ResponsiveContainer,
   Legend,
 } from 'recharts'
-import { format, parseISO, startOfMonth } from 'date-fns'
 
 interface CampaignPerformanceChartProps {
   campaigns: any[]
@@ -60,12 +60,12 @@ export function CampaignPerformanceChart({ campaigns }: CampaignPerformanceChart
   }
 
   return (
-    <ResponsiveContainer width="100%" height={350}>
+    <ResponsiveContainer height={350} width="100%">
       <BarChart data={chartData}>
-        <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
+        <CartesianGrid className="stroke-muted" strokeDasharray="3 3" />
         <XAxis 
-          dataKey="month" 
-          className="text-xs"
+          className="text-xs" 
+          dataKey="month"
           tick={{ fill: 'currentColor' }}
         />
         <YAxis 
@@ -78,13 +78,13 @@ export function CampaignPerformanceChart({ campaigns }: CampaignPerformanceChart
             border: '1px solid hsl(var(--border))',
             borderRadius: '8px',
           }}
-          labelStyle={{ color: 'hsl(var(--foreground))' }}
           formatter={(value: number, name: string) => {
             if (name === 'Budget' || name === 'Spent') {
               return [`${value} BGN`, name]
             }
             return [value, name]
           }}
+          labelStyle={{ color: 'hsl(var(--foreground))' }}
         />
         <Legend />
         <Bar

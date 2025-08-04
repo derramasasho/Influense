@@ -1,6 +1,3 @@
-import { createClient } from '@/app/lib/supabase/server'
-import { getUserProfile } from '@/app/lib/auth/utils'
-import { notFound } from 'next/navigation'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, Button } from '@influencer-platform/ui'
 import { 
   DollarSign, 
@@ -17,7 +14,10 @@ import {
   AlertCircle
 } from 'lucide-react'
 import Link from 'next/link'
+import { notFound } from 'next/navigation'
 import { ApplicationForm } from './components/application-form'
+import { getUserProfile } from '@/app/lib/auth/utils'
+import { createClient } from '@/app/lib/supabase/server'
 
 export default async function CampaignDetailPage({ params }: { params: { id: string } }) {
   const supabase = createClient()
@@ -70,8 +70,8 @@ export default async function CampaignDetailPage({ params }: { params: { id: str
       {/* Header */}
       <div className="mb-8">
         <Link 
-          href="/dashboard/creator/campaigns"
           className="text-sm text-muted-foreground hover:text-foreground mb-4 inline-flex items-center"
+          href="/dashboard/creator/campaigns"
         >
           ← Back to campaigns
         </Link>
@@ -223,9 +223,9 @@ export default async function CampaignDetailPage({ params }: { params: { id: str
               <div className="flex items-start space-x-4">
                 {campaign.brand_profiles.logo_url ? (
                   <img 
-                    src={campaign.brand_profiles.logo_url} 
-                    alt={campaign.brand_profiles.company_name}
+                    alt={campaign.brand_profiles.company_name} 
                     className="w-16 h-16 rounded-xl object-cover"
+                    src={campaign.brand_profiles.logo_url}
                   />
                 ) : (
                   <div className="w-16 h-16 rounded-xl bg-primary/10 flex items-center justify-center">
@@ -240,10 +240,10 @@ export default async function CampaignDetailPage({ params }: { params: { id: str
                   </p>
                   {campaign.brand_profiles.website && (
                     <a 
-                      href={campaign.brand_profiles.website}
-                      target="_blank"
-                      rel="noopener noreferrer"
                       className="text-sm text-primary hover:underline"
+                      href={campaign.brand_profiles.website}
+                      rel="noopener noreferrer"
+                      target="_blank"
                     >
                       Visit website →
                     </a>
@@ -371,11 +371,11 @@ export default async function CampaignDetailPage({ params }: { params: { id: str
                   </div>
                 ) : (
                   <ApplicationForm 
-                    campaignId={campaign.id}
                     brandId={campaign.brand_profiles.id}
-                    minBudget={campaign.budget_min}
-                    maxBudget={campaign.budget_max}
+                    campaignId={campaign.id}
                     deliverables={campaign.deliverables}
+                    maxBudget={campaign.budget_max}
+                    minBudget={campaign.budget_min}
                   />
                 )}
               </CardContent>
@@ -410,7 +410,7 @@ export default async function CampaignDetailPage({ params }: { params: { id: str
                       <p className="text-sm text-muted-foreground mb-4">
                         Your application has been accepted
                       </p>
-                      <Button size="sm" className="w-full">
+                      <Button className="w-full" size="sm">
                         <MessageSquare className="h-4 w-4 mr-2" />
                         Go to Messages
                       </Button>

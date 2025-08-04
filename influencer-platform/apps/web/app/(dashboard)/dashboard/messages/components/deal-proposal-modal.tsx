@@ -1,14 +1,14 @@
 'use client'
 
+import { zodResolver } from '@hookform/resolvers/zod'
+import { Button, Card } from '@influencer-platform/ui'
+import * as Dialog from '@radix-ui/react-dialog'
+import { X, Plus, Calendar, DollarSign } from 'lucide-react'
 import { useState } from 'react'
 import { useForm, useFieldArray } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { z } from 'zod'
-import * as Dialog from '@radix-ui/react-dialog'
-import { Button, Card } from '@influencer-platform/ui'
-import { X, Plus, Calendar, DollarSign } from 'lucide-react'
-import { createClient } from '@/app/lib/supabase/client'
 import toast from 'react-hot-toast'
+import { z } from 'zod'
+import { createClient } from '@/app/lib/supabase/client'
 
 const proposalSchema = z.object({
   budget: z.number().min(1, 'Budget must be greater than 0'),
@@ -142,7 +142,7 @@ export function DealProposalModal({
               </Dialog.Close>
             </div>
 
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+            <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
               {/* Budget */}
               <div>
                 <label className="block text-sm font-medium mb-2">
@@ -196,14 +196,14 @@ export function DealProposalModal({
                         type="number"
                         {...register(`deliverables.${index}.quantity`, { valueAsNumber: true })}
                         className="input-premium w-20"
-                        placeholder="Qty"
                         min="1"
+                        placeholder="Qty"
                       />
                       {fields.length > 1 && (
                         <button
+                          className="p-2 hover:bg-muted rounded-lg transition-colors"
                           type="button"
                           onClick={() => remove(index)}
-                          className="p-2 hover:bg-muted rounded-lg transition-colors"
                         >
                           <X className="h-4 w-4" />
                         </button>
@@ -212,9 +212,9 @@ export function DealProposalModal({
                   ))}
                 </div>
                 <button
+                  className="mt-2 text-sm text-primary hover:underline flex items-center"
                   type="button"
                   onClick={() => append({ type: '', platform: '', quantity: 1 })}
-                  className="mt-2 text-sm text-primary hover:underline flex items-center"
                 >
                   <Plus className="h-3 w-3 mr-1" />
                   Add deliverable
@@ -260,23 +260,23 @@ export function DealProposalModal({
                 </label>
                 <textarea
                   {...register('terms')}
-                  rows={3}
                   className="input-premium w-full resize-none"
                   placeholder="Any specific requirements or terms..."
+                  rows={3}
                 />
               </div>
 
               {/* Actions */}
               <div className="flex gap-3 justify-end">
                 <Button
+                  disabled={isSubmitting}
                   type="button"
                   variant="outline"
                   onClick={onClose}
-                  disabled={isSubmitting}
                 >
                   Cancel
                 </Button>
-                <Button type="submit" disabled={isSubmitting}>
+                <Button disabled={isSubmitting} type="submit">
                   {isSubmitting ? (
                     <>
                       <div className="h-4 w-4 border-2 border-white/30 border-t-white rounded-full animate-spin mr-2" />

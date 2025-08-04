@@ -1,5 +1,5 @@
-import { getUserProfile } from '@/app/lib/auth/utils'
 import { redirect } from 'next/navigation'
+import { getUserProfile } from '@/app/lib/auth/utils'
 
 export default async function OnboardingPage() {
   const profile = await getUserProfile()

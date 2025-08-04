@@ -1,8 +1,8 @@
 'use client'
 
-import { useState } from 'react'
 import { Button } from '@influencer-platform/ui'
 import { CreditCard, Loader2 } from 'lucide-react'
+import { useState } from 'react'
 import toast from 'react-hot-toast'
 
 export function ConnectAccountButton() {
@@ -34,9 +34,9 @@ export function ConnectAccountButton() {
 
   return (
     <Button 
-      onClick={handleConnect} 
+      className="w-full" 
       disabled={isLoading}
-      className="w-full"
+      onClick={handleConnect}
     >
       {isLoading ? (
         <>

@@ -1,13 +1,13 @@
 'use client'
 
-import { useState, useEffect, useRef, useCallback } from 'react'
-import { createClient } from '@/app/lib/supabase/client'
-import { formatDistanceToNow } from 'date-fns'
 import { Avatar, AvatarFallback, AvatarImage, Button } from '@influencer-platform/ui'
+import { formatDistanceToNow } from 'date-fns'
 import { Send, Paperclip, FileText, DollarSign, Info } from 'lucide-react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 import toast from 'react-hot-toast'
 import { DealProposalCard } from './deal-proposal-card'
 import { MessageInput } from './message-input'
+import { createClient } from '@/app/lib/supabase/client'
 
 interface MessageThreadProps {
   conversation: any
@@ -215,10 +215,10 @@ export function MessageThread({ conversation, userType, userId }: MessageThreadP
                   {/* Deal Proposal */}
                   {message.message_type === 'deal_proposal' && message.deal_proposals?.[0] && (
                     <DealProposalCard
-                      proposal={message.deal_proposals[0]}
-                      isOwnProposal={isOwnMessage}
-                      userType={userType}
                       conversationId={conversation.id}
+                      isOwnProposal={isOwnMessage}
+                      proposal={message.deal_proposals[0]}
+                      userType={userType}
                     />
                   )}
 
@@ -253,12 +253,12 @@ export function MessageThread({ conversation, userType, userId }: MessageThreadP
 
       {/* Message Input */}
       <MessageInput
+        conversationId={conversation.id}
+        isSending={isSending}
+        userType={userType}
         value={messageText}
         onChange={setMessageText}
         onSend={sendMessage}
-        isSending={isSending}
-        conversationId={conversation.id}
-        userType={userType}
       />
     </>
   )

@@ -1,6 +1,13 @@
 'use client'
 
-import { useState } from 'react'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { 
+  platformSchema, 
+  deliverableTypeSchema,
+  type Platform,
+  type DeliverableType 
+} from '@influencer-platform/database'
+import { Card } from '@influencer-platform/ui'
 import { motion, AnimatePresence } from 'framer-motion'
 import { 
   ArrowRight, 
@@ -15,19 +22,12 @@ import {
   X,
   Sparkles
 } from 'lucide-react'
-import { useForm, useFieldArray } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { z } from 'zod'
 import { useRouter } from 'next/navigation'
+import { useState } from 'react'
+import { useForm, useFieldArray } from 'react-hook-form'
 import toast from 'react-hot-toast'
+import { z } from 'zod'
 import { createClient } from '@/app/lib/supabase/client'
-import { Card } from '@influencer-platform/ui'
-import { 
-  platformSchema, 
-  deliverableTypeSchema,
-  type Platform,
-  type DeliverableType 
-} from '@influencer-platform/database'
 
 const steps = [
   { id: 'basics', title: 'Campaign Basics', icon: Target },
@@ -245,41 +245,41 @@ export default function CreateCampaignPage() {
       <AnimatePresence mode="wait">
         {currentStep === 0 && (
           <BasicsStep
+            defaultValues={basicsData}
             onNext={(data) => {
               setBasicsData(data)
               nextStep()
             }}
-            defaultValues={basicsData}
           />
         )}
         {currentStep === 1 && (
           <RequirementsStep
+            defaultValues={requirementsData}
+            onBack={prevStep}
             onNext={(data) => {
               setRequirementsData(data)
               nextStep()
             }}
-            onBack={prevStep}
-            defaultValues={requirementsData}
           />
         )}
         {currentStep === 2 && (
           <BudgetStep
+            defaultValues={budgetData}
+            onBack={prevStep}
             onNext={(data) => {
               setBudgetData(data)
               nextStep()
             }}
-            onBack={prevStep}
-            defaultValues={budgetData}
           />
         )}
         {currentStep === 3 && (
           <ReviewStep
             basicsData={basicsData!}
-            requirementsData={requirementsData!}
             budgetData={budgetData!}
+            isLoading={isLoading}
+            requirementsData={requirementsData!}
             onBack={prevStep}
             onLaunch={launchCampaign}
-            isLoading={isLoading}
           />
         )}
       </AnimatePresence>
@@ -336,12 +336,12 @@ function BasicsStep({
 
   return (
     <motion.div
-      initial={{ opacity: 0, x: 20 }}
       animate={{ opacity: 1, x: 0 }}
       exit={{ opacity: 0, x: -20 }}
+      initial={{ opacity: 0, x: 20 }}
     >
       <Card className="p-6">
-        <form onSubmit={handleSubmit(onNext)} className="space-y-6">
+        <form className="space-y-6" onSubmit={handleSubmit(onNext)}>
           <div>
             <label className="block text-sm font-medium mb-2">Campaign Title</label>
             <input
@@ -361,9 +361,9 @@ function BasicsStep({
             <label className="block text-sm font-medium mb-2">Description</label>
             <textarea
               {...register('description')}
-              rows={4}
               className="input-premium w-full resize-none"
               placeholder="Describe your campaign, what you're looking for, and what makes it special..."
+              rows={4}
             />
             {errors.description && (
               <p className="text-sm text-destructive mt-1 flex items-center">
@@ -388,9 +388,9 @@ function BasicsStep({
                   />
                   {objectives.length > 1 && (
                     <button
+                      className="p-2 rounded-xl hover:bg-muted transition-colors"
                       type="button"
                       onClick={() => removeObjective(index)}
-                      className="p-2 rounded-xl hover:bg-muted transition-colors"
                     >
                       <X className="h-4 w-4" />
                     </button>
@@ -400,9 +400,9 @@ function BasicsStep({
             </div>
             {objectives.length < 5 && (
               <button
+                className="mt-2 text-sm text-primary hover:underline flex items-center"
                 type="button"
                 onClick={addObjective}
-                className="mt-2 text-sm text-primary hover:underline flex items-center"
               >
                 <Plus className="h-3 w-3 mr-1" />
                 Add another objective
@@ -422,13 +422,13 @@ function BasicsStep({
               {categories.map((category) => (
                 <button
                   key={category.id}
-                  type="button"
-                  onClick={() => toggleCategory(category.id)}
                   className={`p-3 rounded-xl text-center transition-all ${
                     selectedCategories.includes(category.id)
                       ? 'bg-primary text-primary-foreground ring-2 ring-primary'
                       : 'bg-muted hover:bg-muted/80'
                   }`}
+                  type="button"
+                  onClick={() => toggleCategory(category.id)}
                 >
                   <div className="text-xl mb-1">{category.icon}</div>
                   <div className="text-xs font-medium">{category.label}</div>
@@ -444,7 +444,7 @@ function BasicsStep({
           </div>
 
           <div className="flex justify-end">
-            <button type="submit" className="btn-premium">
+            <button className="btn-premium" type="submit">
               Continue
               <ArrowRight className="ml-2 h-4 w-4" />
             </button>
@@ -523,12 +523,12 @@ function RequirementsStep({
 
   return (
     <motion.div
-      initial={{ opacity: 0, x: 20 }}
       animate={{ opacity: 1, x: 0 }}
       exit={{ opacity: 0, x: -20 }}
+      initial={{ opacity: 0, x: 20 }}
     >
       <Card className="p-6">
-        <form onSubmit={handleSubmit(onNext)} className="space-y-6">
+        <form className="space-y-6" onSubmit={handleSubmit(onNext)}>
           {/* Platforms */}
           <div>
             <label className="block text-sm font-medium mb-3">Platforms</label>
@@ -536,13 +536,13 @@ function RequirementsStep({
               {platformOptions.map((platform) => (
                 <button
                   key={platform.value}
-                  type="button"
-                  onClick={() => togglePlatform(platform.value)}
                   className={`p-3 rounded-xl text-center transition-all ${
                     selectedPlatforms.includes(platform.value)
                       ? 'bg-primary text-primary-foreground ring-2 ring-primary'
                       : 'bg-muted hover:bg-muted/80'
                   }`}
+                  type="button"
+                  onClick={() => togglePlatform(platform.value)}
                 >
                   <div className="text-xl mb-1">{platform.icon}</div>
                   <div className="text-sm font-medium">{platform.label}</div>
@@ -595,15 +595,15 @@ function RequirementsStep({
                       type="number"
                       {...register(`deliverables.${index}.quantity`, { valueAsNumber: true })}
                       className="input-premium w-full"
-                      placeholder="Qty"
                       min="1"
+                      placeholder="Qty"
                     />
                   </div>
                   {deliverableFields.length > 1 && (
                     <button
+                      className="p-2 rounded-xl hover:bg-muted transition-colors"
                       type="button"
                       onClick={() => removeDeliverable(index)}
-                      className="p-2 rounded-xl hover:bg-muted transition-colors"
                     >
                       <X className="h-4 w-4" />
                     </button>
@@ -612,9 +612,9 @@ function RequirementsStep({
               ))}
             </div>
             <button
+              className="mt-2 text-sm text-primary hover:underline flex items-center"
               type="button"
               onClick={() => addDeliverable({ type: 'post', platform: 'instagram', quantity: 1 })}
-              className="mt-2 text-sm text-primary hover:underline flex items-center"
             >
               <Plus className="h-3 w-3 mr-1" />
               Add deliverable
@@ -643,9 +643,9 @@ function RequirementsStep({
                   />
                   {requirements.length > 1 && (
                     <button
+                      className="p-2 rounded-xl hover:bg-muted transition-colors"
                       type="button"
                       onClick={() => removeRequirement(index)}
-                      className="p-2 rounded-xl hover:bg-muted transition-colors"
                     >
                       <X className="h-4 w-4" />
                     </button>
@@ -655,9 +655,9 @@ function RequirementsStep({
             </div>
             {requirements.length < 10 && (
               <button
+                className="mt-2 text-sm text-primary hover:underline flex items-center"
                 type="button"
                 onClick={addRequirement}
-                className="mt-2 text-sm text-primary hover:underline flex items-center"
               >
                 <Plus className="h-3 w-3 mr-1" />
                 Add requirement
@@ -681,8 +681,8 @@ function RequirementsStep({
                 type="number"
                 {...register('minFollowers', { valueAsNumber: true })}
                 className="input-premium w-full"
-                placeholder="e.g., 1000"
                 min="0"
+                placeholder="e.g., 1000"
               />
             </div>
 
@@ -707,13 +707,13 @@ function RequirementsStep({
               {languages.map((lang) => (
                 <button
                   key={lang.code}
-                  type="button"
-                  onClick={() => toggleLanguage(lang.code)}
                   className={`px-4 py-2 rounded-xl text-sm font-medium transition-all ${
                     selectedLanguages.includes(lang.code)
                       ? 'bg-primary text-primary-foreground'
                       : 'bg-muted hover:bg-muted/80'
                   }`}
+                  type="button"
+                  onClick={() => toggleLanguage(lang.code)}
                 >
                   {lang.label}
                 </button>
@@ -722,11 +722,11 @@ function RequirementsStep({
           </div>
 
           <div className="flex justify-between">
-            <button type="button" onClick={onBack} className="btn-glass">
+            <button className="btn-glass" type="button" onClick={onBack}>
               <ArrowLeft className="mr-2 h-4 w-4" />
               Back
             </button>
-            <button type="submit" className="btn-premium">
+            <button className="btn-premium" type="submit">
               Continue
               <ArrowRight className="ml-2 h-4 w-4" />
             </button>
@@ -768,12 +768,12 @@ function BudgetStep({
 
   return (
     <motion.div
-      initial={{ opacity: 0, x: 20 }}
       animate={{ opacity: 1, x: 0 }}
       exit={{ opacity: 0, x: -20 }}
+      initial={{ opacity: 0, x: 20 }}
     >
       <Card className="p-6">
-        <form onSubmit={handleSubmit(onNext)} className="space-y-6">
+        <form className="space-y-6" onSubmit={handleSubmit(onNext)}>
           {/* Budget Range */}
           <div>
             <label className="block text-sm font-medium mb-2">Budget Range (BGN)</label>
@@ -789,8 +789,8 @@ function BudgetStep({
                     type="number"
                     {...register('budgetMin', { valueAsNumber: true })}
                     className="input-premium w-full pl-11"
-                    placeholder="100"
                     min="50"
+                    placeholder="100"
                   />
                 </div>
                 {errors.budgetMin && (
@@ -805,8 +805,8 @@ function BudgetStep({
                     type="number"
                     {...register('budgetMax', { valueAsNumber: true })}
                     className="input-premium w-full pl-11"
-                    placeholder="1000"
                     min="50"
+                    placeholder="1000"
                   />
                 </div>
                 {errors.budgetMax && (
@@ -872,11 +872,11 @@ function BudgetStep({
           </div>
 
           <div className="flex justify-between">
-            <button type="button" onClick={onBack} className="btn-glass">
+            <button className="btn-glass" type="button" onClick={onBack}>
               <ArrowLeft className="mr-2 h-4 w-4" />
               Back
             </button>
-            <button type="submit" className="btn-premium" disabled={!!budgetError}>
+            <button className="btn-premium" disabled={!!budgetError} type="submit">
               Continue
               <ArrowRight className="ml-2 h-4 w-4" />
             </button>
@@ -909,10 +909,10 @@ function ReviewStep({
 
   return (
     <motion.div
-      initial={{ opacity: 0, x: 20 }}
       animate={{ opacity: 1, x: 0 }}
-      exit={{ opacity: 0, x: -20 }}
       className="space-y-6"
+      exit={{ opacity: 0, x: -20 }}
+      initial={{ opacity: 0, x: 20 }}
     >
       {/* Campaign Summary */}
       <Card className="p-6">
@@ -1016,11 +1016,11 @@ function ReviewStep({
 
       {/* Actions */}
       <div className="flex justify-between">
-        <button onClick={onBack} className="btn-glass" disabled={isLoading}>
+        <button className="btn-glass" disabled={isLoading} onClick={onBack}>
           <ArrowLeft className="mr-2 h-4 w-4" />
           Back
         </button>
-        <button onClick={onLaunch} className="btn-premium" disabled={isLoading}>
+        <button className="btn-premium" disabled={isLoading} onClick={onLaunch}>
           {isLoading ? (
             <>
               <div className="h-4 w-4 border-2 border-white/30 border-t-white rounded-full animate-spin mr-2" />

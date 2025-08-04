@@ -1,5 +1,3 @@
-import { createClient } from '@/app/lib/supabase/server'
-import { getUserProfile } from '@/app/lib/auth/utils'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, Button } from '@influencer-platform/ui'
 import { 
   DollarSign, 
@@ -13,9 +11,11 @@ import {
   ExternalLink
 } from 'lucide-react'
 import Link from 'next/link'
-import { getInfluencerEarnings, isAccountComplete } from '@/app/lib/stripe/server'
 import { ConnectAccountButton } from './components/connect-account-button'
 import { PayoutButton } from './components/payout-button'
+import { getUserProfile } from '@/app/lib/auth/utils'
+import { getInfluencerEarnings, isAccountComplete } from '@/app/lib/stripe/server'
+import { createClient } from '@/app/lib/supabase/server'
 
 export default async function CreatorEarningsPage() {
   const supabase = createClient()
@@ -197,8 +197,8 @@ export default async function CreatorEarningsPage() {
                     <p className="text-sm text-muted-foreground">Available for payout</p>
                   </div>
                   <PayoutButton 
-                    amount={earnings.available}
                     accountId={influencerProfile.stripe_account_id}
+                    amount={earnings.available}
                   />
                 </div>
               </CardContent>
@@ -267,10 +267,10 @@ export default async function CreatorEarningsPage() {
             </CardHeader>
             <CardContent>
               <a
-                href={`https://dashboard.stripe.com/express/${influencerProfile.stripe_account_id}`}
-                target="_blank"
-                rel="noopener noreferrer"
                 className="inline-flex items-center text-primary hover:underline"
+                href={`https://dashboard.stripe.com/express/${influencerProfile.stripe_account_id}`}
+                rel="noopener noreferrer"
+                target="_blank"
               >
                 <ExternalLink className="h-4 w-4 mr-1" />
                 View Stripe Dashboard

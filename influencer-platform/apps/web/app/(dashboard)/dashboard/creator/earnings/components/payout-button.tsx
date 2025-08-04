@@ -1,8 +1,8 @@
 'use client'
 
-import { useState } from 'react'
 import { Button } from '@influencer-platform/ui'
 import { DollarSign, Loader2 } from 'lucide-react'
+import { useState } from 'react'
 import toast from 'react-hot-toast'
 import { createClient } from '@/app/lib/supabase/client'
 
@@ -56,8 +56,8 @@ export function PayoutButton({ amount, accountId }: PayoutButtonProps) {
 
   return (
     <Button 
-      onClick={handlePayout} 
-      disabled={isLoading}
+      disabled={isLoading} 
+      onClick={handlePayout}
     >
       {isLoading ? (
         <>

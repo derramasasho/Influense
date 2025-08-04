@@ -2,6 +2,13 @@
   "name": "@influencer-platform/eslint-config",
   "version": "1.0.0",
   "private": true,
+  "main": "base.js",
+  "exports": {
+    ".": "./base.js",
+    "./base": "./base.js",
+    "./nextjs": "./nextjs.js",
+    "./react": "./react.js"
+  },
   "files": [
     "base.js",
     "nextjs.js",

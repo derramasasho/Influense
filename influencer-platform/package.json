@@ -15,9 +15,14 @@
     "clean": "turbo clean && rm -rf node_modules"
   },
   "devDependencies": {
-    "turbo": "^2.0.0",
     "prettier": "^3.0.0",
     "prettier-plugin-tailwindcss": "^0.6.0",
+    "turbo": "^2.0.0",
     "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "@radix-ui/react-popover": "^1.1.14",
+    "@radix-ui/react-slot": "^1.2.3",
+    "@radix-ui/themes": "^3.2.1"
   }
 }

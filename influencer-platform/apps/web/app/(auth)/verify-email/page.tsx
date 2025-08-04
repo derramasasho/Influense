@@ -1,9 +1,9 @@
 'use client'
 
-import { useSearchParams } from 'next/navigation'
-import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { Mail, ArrowLeft, Sparkles } from 'lucide-react'
+import Link from 'next/link'
+import { useSearchParams } from 'next/navigation'
 
 export default function VerifyEmailPage() {
   const searchParams = useSearchParams()
@@ -12,14 +12,14 @@ export default function VerifyEmailPage() {
   return (
     <div className="min-h-screen flex items-center justify-center p-8">
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
         className="w-full max-w-md"
+        initial={{ opacity: 0, y: 20 }}
+        transition={{ duration: 0.5 }}
       >
         <Link 
-          href="/" 
-          className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground mb-8 transition-colors"
+          className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground mb-8 transition-colors" 
+          href="/"
         >
           <ArrowLeft className="h-4 w-4 mr-2" />
           Back to home
@@ -38,10 +38,10 @@ export default function VerifyEmailPage() {
         </div>
 
         <motion.div
-          initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
           className="card-premium mb-6"
+          initial={{ opacity: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
         >
           <h3 className="font-semibold mb-2">Next steps:</h3>
           <ol className="space-y-2 text-sm text-muted-foreground">
@@ -70,18 +70,18 @@ export default function VerifyEmailPage() {
           </button>
 
           <Link 
-            href="/login" 
-            className="block text-center text-sm text-primary hover:underline"
+            className="block text-center text-sm text-primary hover:underline" 
+            href="/login"
           >
             Already verified? Sign in
           </Link>
         </div>
 
         <motion.div
-          initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.4 }}
           className="mt-12 p-4 rounded-xl bg-muted/50 text-center"
+          initial={{ opacity: 0 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
         >
           <div className="flex items-center justify-center space-x-2 text-sm text-muted-foreground">
             <Sparkles className="h-4 w-4" />

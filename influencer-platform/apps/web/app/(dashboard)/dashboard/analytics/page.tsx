@@ -1,5 +1,4 @@
-import { createClient } from '@/app/lib/supabase/server'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle, Button } from '@influencer-platform/ui'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle, Button , Avatar, AvatarFallback, AvatarImage } from '@influencer-platform/ui'
 import { 
   TrendingUp, 
   Users, 
@@ -11,7 +10,7 @@ import {
   Sparkles
 } from 'lucide-react'
 import Link from 'next/link'
-import { Avatar, AvatarFallback, AvatarImage } from '@influencer-platform/ui'
+import { createClient } from '@/app/lib/supabase/server'
 
 export default async function AnalyticsPage() {
   const supabase = createClient()
@@ -123,7 +122,7 @@ export default async function AnalyticsPage() {
               >
                 <div className="flex items-center gap-3">
                   <Avatar>
-                    <AvatarImage src={creator.profile_image} alt={creator.full_name} />
+                    <AvatarImage alt={creator.full_name} src={creator.profile_image} />
                     <AvatarFallback>
                       {creator.full_name.split(' ').map((n: string) => n[0]).join('')}
                     </AvatarFallback>

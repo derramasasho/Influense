@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { zodResolver } from '@hookform/resolvers/zod'
 import { motion, AnimatePresence } from 'framer-motion'
 import { 
   ArrowRight, 
@@ -18,11 +18,11 @@ import {
   Hash,
   Users
 } from 'lucide-react'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { z } from 'zod'
 import { useRouter } from 'next/navigation'
+import { useState } from 'react'
+import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
+import { z } from 'zod'
 import { createClient } from '@/app/lib/supabase/client'
 
 const steps = [
@@ -235,27 +235,27 @@ export default function CreatorOnboardingPage() {
           )}
           {currentStep === 1 && (
             <SocialStep
+              onBack={prevStep}
               onNext={(data) => {
                 setSocialData(data)
                 nextStep()
               }}
-              onBack={prevStep}
             />
           )}
           {currentStep === 2 && (
             <CategoriesStep
+              onBack={prevStep}
               onNext={(data) => {
                 setCategoriesData(data)
                 nextStep()
               }}
-              onBack={prevStep}
             />
           )}
           {currentStep === 3 && (
             <PricingStep
-              onComplete={completeOnboarding}
-              onBack={prevStep}
               isLoading={isLoading}
+              onBack={prevStep}
+              onComplete={completeOnboarding}
             />
           )}
         </AnimatePresence>
@@ -292,10 +292,10 @@ function ProfileStep({ onNext }: { onNext: (data: ProfileData) => void }) {
 
   return (
     <motion.div
-      initial={{ opacity: 0, x: 20 }}
       animate={{ opacity: 1, x: 0 }}
-      exit={{ opacity: 0, x: -20 }}
       className="card-premium max-w-2xl mx-auto"
+      exit={{ opacity: 0, x: -20 }}
+      initial={{ opacity: 0, x: 20 }}
     >
       <div className="p-8">
         <h2 className="text-2xl font-display font-bold mb-2">Let's set up your profile</h2>
@@ -303,7 +303,7 @@ function ProfileStep({ onNext }: { onNext: (data: ProfileData) => void }) {
           This information will be visible to brands looking for creators
         </p>
 
-        <form onSubmit={handleSubmit(onNext)} className="space-y-6">
+        <form className="space-y-6" onSubmit={handleSubmit(onNext)}>
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium mb-2">Full Name</label>
@@ -339,9 +339,9 @@ function ProfileStep({ onNext }: { onNext: (data: ProfileData) => void }) {
             <label className="block text-sm font-medium mb-2">Bio</label>
             <textarea
               {...register('bio')}
-              rows={4}
               className="input-premium w-full resize-none"
               placeholder="Tell brands about yourself, your content style, and what makes you unique..."
+              rows={4}
             />
             {errors.bio && (
               <p className="text-sm text-destructive mt-1">{errors.bio.message}</p>
@@ -369,13 +369,13 @@ function ProfileStep({ onNext }: { onNext: (data: ProfileData) => void }) {
               {languages.map((lang) => (
                 <button
                   key={lang.code}
-                  type="button"
-                  onClick={() => toggleLanguage(lang.code)}
                   className={`p-3 rounded-xl text-sm font-medium transition-all ${
                     selectedLanguages.includes(lang.code)
                       ? 'bg-primary text-primary-foreground'
                       : 'bg-muted hover:bg-muted/80'
                   }`}
+                  type="button"
+                  onClick={() => toggleLanguage(lang.code)}
                 >
                   {lang.label}
                 </button>
@@ -387,7 +387,7 @@ function ProfileStep({ onNext }: { onNext: (data: ProfileData) => void }) {
           </div>
 
           <div className="flex justify-end">
-            <button type="submit" className="btn-premium">
+            <button className="btn-premium" type="submit">
               Continue
               <ArrowRight className="ml-2 h-4 w-4" />
             </button>
@@ -416,10 +416,10 @@ function SocialStep({
 
   return (
     <motion.div
-      initial={{ opacity: 0, x: 20 }}
       animate={{ opacity: 1, x: 0 }}
-      exit={{ opacity: 0, x: -20 }}
       className="card-premium max-w-2xl mx-auto"
+      exit={{ opacity: 0, x: -20 }}
+      initial={{ opacity: 0, x: 20 }}
     >
       <div className="p-8">
         <h2 className="text-2xl font-display font-bold mb-2">Connect your social accounts</h2>
@@ -427,7 +427,7 @@ function SocialStep({
           Help brands understand your reach and engagement
         </p>
 
-        <form onSubmit={handleSubmit(onNext)} className="space-y-6">
+        <form className="space-y-6" onSubmit={handleSubmit(onNext)}>
           {/* Instagram */}
           <div className="space-y-4">
             <div className="flex items-center space-x-3">
@@ -485,7 +485,7 @@ function SocialStep({
           {/* TikTok */}
           <div className="space-y-4">
             <div className="flex items-center space-x-3">
-              <svg className="h-6 w-6" viewBox="0 0 24 24" fill="currentColor">
+              <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
               </svg>
               <h3 className="font-semibold">TikTok</h3>
@@ -539,11 +539,11 @@ function SocialStep({
           </div>
 
           <div className="flex justify-between">
-            <button type="button" onClick={onBack} className="btn-glass">
+            <button className="btn-glass" type="button" onClick={onBack}>
               <ArrowLeft className="mr-2 h-4 w-4" />
               Back
             </button>
-            <button type="submit" className="btn-premium">
+            <button className="btn-premium" type="submit">
               Continue
               <ArrowRight className="ml-2 h-4 w-4" />
             </button>
@@ -585,10 +585,10 @@ function CategoriesStep({
 
   return (
     <motion.div
-      initial={{ opacity: 0, x: 20 }}
       animate={{ opacity: 1, x: 0 }}
-      exit={{ opacity: 0, x: -20 }}
       className="card-premium max-w-3xl mx-auto"
+      exit={{ opacity: 0, x: -20 }}
+      initial={{ opacity: 0, x: 20 }}
     >
       <div className="p-8">
         <h2 className="text-2xl font-display font-bold mb-2">What's your niche?</h2>
@@ -601,13 +601,13 @@ function CategoriesStep({
             {categories.map((category) => (
               <button
                 key={category.id}
-                type="button"
-                onClick={() => toggleCategory(category.id)}
                 className={`p-4 rounded-2xl text-center transition-all ${
                   selectedCategories.includes(category.id)
                     ? 'bg-primary text-primary-foreground ring-2 ring-primary'
                     : 'bg-muted hover:bg-muted/80'
                 }`}
+                type="button"
+                onClick={() => toggleCategory(category.id)}
               >
                 <div className="text-2xl mb-1">{category.icon}</div>
                 <div className="text-sm font-medium">{category.label}</div>
@@ -622,11 +622,11 @@ function CategoriesStep({
           </div>
 
           <div className="flex justify-between">
-            <button type="button" onClick={onBack} className="btn-glass">
+            <button className="btn-glass" type="button" onClick={onBack}>
               <ArrowLeft className="mr-2 h-4 w-4" />
               Back
             </button>
-            <button type="submit" className="btn-premium">
+            <button className="btn-premium" type="submit">
               Continue
               <ArrowRight className="ml-2 h-4 w-4" />
             </button>
@@ -667,10 +667,10 @@ function PricingStep({
 
   return (
     <motion.div
-      initial={{ opacity: 0, x: 20 }}
       animate={{ opacity: 1, x: 0 }}
-      exit={{ opacity: 0, x: -20 }}
       className="card-premium max-w-2xl mx-auto"
+      exit={{ opacity: 0, x: -20 }}
+      initial={{ opacity: 0, x: 20 }}
     >
       <div className="p-8">
         <h2 className="text-2xl font-display font-bold mb-2">Set your pricing</h2>
@@ -678,7 +678,7 @@ function PricingStep({
           Help brands understand your rates and budget expectations
         </p>
 
-        <form onSubmit={handleSubmit(onComplete)} className="space-y-6">
+        <form className="space-y-6" onSubmit={handleSubmit(onComplete)}>
           <div>
             <label className="block text-sm font-medium mb-2">
               Minimum Campaign Budget (BGN)
@@ -744,11 +744,11 @@ function PricingStep({
           </div>
 
           <div className="flex justify-between">
-            <button type="button" onClick={onBack} className="btn-glass" disabled={isLoading}>
+            <button className="btn-glass" disabled={isLoading} type="button" onClick={onBack}>
               <ArrowLeft className="mr-2 h-4 w-4" />
               Back
             </button>
-            <button type="submit" className="btn-premium" disabled={isLoading}>
+            <button className="btn-premium" disabled={isLoading} type="submit">
               {isLoading ? (
                 <>
                   <div className="h-4 w-4 border-2 border-white/30 border-t-white rounded-full animate-spin mr-2" />

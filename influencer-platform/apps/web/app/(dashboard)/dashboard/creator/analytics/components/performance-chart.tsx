@@ -1,5 +1,6 @@
 'use client'
 
+import { format, parseISO, startOfMonth } from 'date-fns'
 import { useMemo } from 'react'
 import {
   Line,
@@ -11,7 +12,6 @@ import {
   ResponsiveContainer,
   Legend,
 } from 'recharts'
-import { format, parseISO, startOfMonth } from 'date-fns'
 
 interface PerformanceChartProps {
   data: any[]
@@ -60,12 +60,12 @@ export function PerformanceChart({ data }: PerformanceChartProps) {
   }
 
   return (
-    <ResponsiveContainer width="100%" height={350}>
+    <ResponsiveContainer height={350} width="100%">
       <LineChart data={chartData}>
-        <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
+        <CartesianGrid className="stroke-muted" strokeDasharray="3 3" />
         <XAxis 
-          dataKey="month" 
-          className="text-xs"
+          className="text-xs" 
+          dataKey="month"
           tick={{ fill: 'currentColor' }}
         />
         <YAxis 
@@ -82,20 +82,20 @@ export function PerformanceChart({ data }: PerformanceChartProps) {
         />
         <Legend />
         <Line
-          type="monotone"
           dataKey="applications"
+          dot={{ fill: 'hsl(var(--primary))' }}
+          name="Applications"
           stroke="hsl(var(--primary))"
           strokeWidth={2}
-          name="Applications"
-          dot={{ fill: 'hsl(var(--primary))' }}
+          type="monotone"
         />
         <Line
-          type="monotone"
           dataKey="accepted"
+          dot={{ fill: '#10b981' }}
+          name="Accepted"
           stroke="#10b981"
           strokeWidth={2}
-          name="Accepted"
-          dot={{ fill: '#10b981' }}
+          type="monotone"
         />
       </LineChart>
     </ResponsiveContainer>

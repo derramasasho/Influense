@@ -27,12 +27,12 @@ export function CampaignSearch() {
     <div className="relative">
       <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
       <input
-        type="text"
-        placeholder="Search campaigns..."
-        defaultValue={searchParams.get('q') || ''}
-        onChange={(e) => handleSearch(e.target.value)}
         className="input-premium w-full pl-11 pr-4"
+        defaultValue={searchParams.get('q') || ''}
         disabled={isPending}
+        placeholder="Search campaigns..."
+        type="text"
+        onChange={(e) => handleSearch(e.target.value)}
       />
       {isPending && (
         <div className="absolute right-4 top-1/2 -translate-y-1/2">

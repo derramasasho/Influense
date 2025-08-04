@@ -1,5 +1,3 @@
-import { requireRole } from '@/app/lib/auth/utils'
-import { DashboardNav } from '@/app/components/dashboard/nav'
 import { 
   Home, 
   Search, 
@@ -10,6 +8,8 @@ import {
   Settings,
   HelpCircle
 } from 'lucide-react'
+import { DashboardNav } from '@/app/components/dashboard/nav'
+import { requireRole } from '@/app/lib/auth/utils'
 
 const creatorNavItems = [
   {

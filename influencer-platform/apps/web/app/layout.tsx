@@ -3,7 +3,7 @@ import { Inter } from 'next/font/google'
 import localFont from 'next/font/local'
 import './globals.css'
 import { Toaster } from 'react-hot-toast'
-import { ThemeProvider } from '@/app/components/theme-provider'
+import { ThemeProvider } from './components/theme-provider'
 
 const inter = Inter({ 
   subsets: ['latin', 'cyrillic'],
@@ -11,17 +11,17 @@ const inter = Inter({
   display: 'swap',
 })
 
-const satoshi = localFont({
-  src: [
-    {
-      path: '../public/fonts/Satoshi-Variable.woff2',
-      weight: '300 900',
-      style: 'normal',
-    },
-  ],
-  variable: '--font-satoshi',
-  display: 'swap',
-})
+// const satoshi = localFont({
+//   src: [
+//     {
+//       path: '../public/fonts/Satoshi-Variable.woff2',
+//       weight: '300 900',
+//       style: 'normal',
+//     },
+//   ],
+//   variable: '--font-satoshi',
+//   display: 'swap',
+// })
 
 export const metadata: Metadata = {
   title: 'Influencer Platform Bulgaria - Connect Brands with Top Creators',
@@ -58,13 +58,13 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="bg" suppressHydrationWarning>
-      <body className={`${inter.variable} ${satoshi.variable} font-sans antialiased`}>
+    <html suppressHydrationWarning lang="bg">
+      <body className={`${inter.variable} font-sans antialiased`}>
         <ThemeProvider
+          disableTransitionOnChange
+          enableSystem
           attribute="class"
           defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
         >
           {children}
           <Toaster

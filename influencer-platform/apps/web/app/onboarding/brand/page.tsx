@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { zodResolver } from '@hookform/resolvers/zod'
 import { motion, AnimatePresence } from 'framer-motion'
 import { 
   ArrowRight, 
@@ -13,11 +13,11 @@ import {
   Upload,
   Link as LinkIcon
 } from 'lucide-react'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { z } from 'zod'
 import { useRouter } from 'next/navigation'
+import { useState } from 'react'
+import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
+import { z } from 'zod'
 import { createClient } from '@/app/lib/supabase/client'
 
 const steps = [
@@ -217,18 +217,18 @@ export default function BrandOnboardingPage() {
           )}
           {currentStep === 1 && (
             <DetailsStep
+              onBack={prevStep}
               onNext={(data) => {
                 setDetailsData(data)
                 nextStep()
               }}
-              onBack={prevStep}
             />
           )}
           {currentStep === 2 && (
             <TeamStep
-              onComplete={completeOnboarding}
-              onBack={prevStep}
               isLoading={isLoading}
+              onBack={prevStep}
+              onComplete={completeOnboarding}
             />
           )}
         </AnimatePresence>
@@ -249,10 +249,10 @@ function CompanyStep({ onNext }: { onNext: (data: CompanyData) => void }) {
 
   return (
     <motion.div
-      initial={{ opacity: 0, x: 20 }}
       animate={{ opacity: 1, x: 0 }}
-      exit={{ opacity: 0, x: -20 }}
       className="card-premium max-w-2xl mx-auto"
+      exit={{ opacity: 0, x: -20 }}
+      initial={{ opacity: 0, x: 20 }}
     >
       <div className="p-8">
         <h2 className="text-2xl font-display font-bold mb-2">Tell us about your company</h2>
@@ -260,7 +260,7 @@ function CompanyStep({ onNext }: { onNext: (data: CompanyData) => void }) {
           This helps creators understand your brand better
         </p>
 
-        <form onSubmit={handleSubmit(onNext)} className="space-y-6">
+        <form className="space-y-6" onSubmit={handleSubmit(onNext)}>
           <div>
             <label className="block text-sm font-medium mb-2">Company Name</label>
             <div className="relative">
@@ -310,7 +310,7 @@ function CompanyStep({ onNext }: { onNext: (data: CompanyData) => void }) {
           </div>
 
           <div className="flex justify-end">
-            <button type="submit" className="btn-premium">
+            <button className="btn-premium" type="submit">
               Continue
               <ArrowRight className="ml-2 h-4 w-4" />
             </button>
@@ -355,10 +355,10 @@ function DetailsStep({
 
   return (
     <motion.div
-      initial={{ opacity: 0, x: 20 }}
       animate={{ opacity: 1, x: 0 }}
-      exit={{ opacity: 0, x: -20 }}
       className="card-premium max-w-2xl mx-auto"
+      exit={{ opacity: 0, x: -20 }}
+      initial={{ opacity: 0, x: 20 }}
     >
       <div className="p-8">
         <h2 className="text-2xl font-display font-bold mb-2">Brand details</h2>
@@ -366,14 +366,14 @@ function DetailsStep({
           Help creators understand what you're looking for
         </p>
 
-        <form onSubmit={handleSubmit(onNext)} className="space-y-6">
+        <form className="space-y-6" onSubmit={handleSubmit(onNext)}>
           <div>
             <label className="block text-sm font-medium mb-2">Brand Description</label>
             <textarea
               {...register('description')}
-              rows={4}
               className="input-premium w-full resize-none"
               placeholder="Tell creators about your brand, values, and what makes you unique..."
+              rows={4}
             />
             {errors.description && (
               <p className="text-sm text-destructive mt-1">{errors.description.message}</p>
@@ -398,13 +398,13 @@ function DetailsStep({
               {targetAudiences.map((audience) => (
                 <button
                   key={audience.id}
-                  type="button"
-                  onClick={() => toggleAudience(audience.id)}
                   className={`p-3 rounded-xl text-center transition-all ${
                     selectedAudiences.includes(audience.id)
                       ? 'bg-primary text-primary-foreground ring-2 ring-primary'
                       : 'bg-muted hover:bg-muted/80'
                   }`}
+                  type="button"
+                  onClick={() => toggleAudience(audience.id)}
                 >
                   <div className="text-xl mb-1">{audience.icon}</div>
                   <div className="text-xs font-medium">{audience.label}</div>
@@ -417,11 +417,11 @@ function DetailsStep({
           </div>
 
           <div className="flex justify-between">
-            <button type="button" onClick={onBack} className="btn-glass">
+            <button className="btn-glass" type="button" onClick={onBack}>
               <ArrowLeft className="mr-2 h-4 w-4" />
               Back
             </button>
-            <button type="submit" className="btn-premium">
+            <button className="btn-premium" type="submit">
               Continue
               <ArrowRight className="ml-2 h-4 w-4" />
             </button>
@@ -452,10 +452,10 @@ function TeamStep({
 
   return (
     <motion.div
-      initial={{ opacity: 0, x: 20 }}
       animate={{ opacity: 1, x: 0 }}
-      exit={{ opacity: 0, x: -20 }}
       className="card-premium max-w-2xl mx-auto"
+      exit={{ opacity: 0, x: -20 }}
+      initial={{ opacity: 0, x: 20 }}
     >
       <div className="p-8">
         <h2 className="text-2xl font-display font-bold mb-2">Team & Budget</h2>
@@ -463,7 +463,7 @@ function TeamStep({
           This helps us recommend the right creators for your budget
         </p>
 
-        <form onSubmit={handleSubmit(onComplete)} className="space-y-6">
+        <form className="space-y-6" onSubmit={handleSubmit(onComplete)}>
           <div>
             <label className="block text-sm font-medium mb-3">Company Size</label>
             <div className="grid grid-cols-1 gap-2">
@@ -529,11 +529,11 @@ function TeamStep({
           </div>
 
           <div className="flex justify-between">
-            <button type="button" onClick={onBack} className="btn-glass" disabled={isLoading}>
+            <button className="btn-glass" disabled={isLoading} type="button" onClick={onBack}>
               <ArrowLeft className="mr-2 h-4 w-4" />
               Back
             </button>
-            <button type="submit" className="btn-premium" disabled={isLoading}>
+            <button className="btn-premium" disabled={isLoading} type="submit">
               {isLoading ? (
                 <>
                   <div className="h-4 w-4 border-2 border-white/30 border-t-white rounded-full animate-spin mr-2" />

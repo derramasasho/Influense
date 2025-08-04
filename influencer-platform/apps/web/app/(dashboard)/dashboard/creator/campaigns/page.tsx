@@ -1,4 +1,3 @@
-import { createClient } from '@/app/lib/supabase/server'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@influencer-platform/ui'
 import { 
   DollarSign, 
@@ -14,6 +13,7 @@ import {
 import Link from 'next/link'
 import { CampaignFilters } from './components/campaign-filters'
 import { CampaignSearch } from './components/campaign-search'
+import { createClient } from '@/app/lib/supabase/server'
 
 export default async function CreatorCampaignsPage() {
   const supabase = createClient()
@@ -128,9 +128,9 @@ export default async function CreatorCampaignsPage() {
                   <div className="flex items-center space-x-3">
                     {campaign.brand_profiles?.logo_url ? (
                       <img 
-                        src={campaign.brand_profiles.logo_url} 
-                        alt={campaign.brand_profiles.company_name}
+                        alt={campaign.brand_profiles.company_name} 
                         className="w-10 h-10 rounded-full object-cover"
+                        src={campaign.brand_profiles.logo_url}
                       />
                     ) : (
                       <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">

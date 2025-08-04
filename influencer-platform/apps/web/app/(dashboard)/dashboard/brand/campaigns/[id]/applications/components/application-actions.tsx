@@ -1,11 +1,11 @@
 'use client'
 
-import { useState } from 'react'
-import { useRouter } from 'next/navigation'
 import { Button } from '@influencer-platform/ui'
 import { Check, X, MessageSquare } from 'lucide-react'
-import { createClient } from '@/app/lib/supabase/client'
+import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 import toast from 'react-hot-toast'
+import { createClient } from '@/app/lib/supabase/client'
 
 interface ApplicationActionsProps {
   application: any
@@ -84,20 +84,20 @@ export function ApplicationActions({ application, campaignId }: ApplicationActio
   return (
     <div className="flex gap-3 pt-4 border-t">
       <Button
-        size="sm"
         className="flex-1"
-        onClick={() => handleAction('accept')}
         disabled={isUpdating}
+        size="sm"
+        onClick={() => handleAction('accept')}
       >
         <Check className="h-4 w-4 mr-1" />
         Accept & Start Chat
       </Button>
       <Button
+        className="flex-1"
+        disabled={isUpdating}
         size="sm"
         variant="outline"
-        className="flex-1"
         onClick={() => handleAction('reject')}
-        disabled={isUpdating}
       >
         <X className="h-4 w-4 mr-1" />
         Reject

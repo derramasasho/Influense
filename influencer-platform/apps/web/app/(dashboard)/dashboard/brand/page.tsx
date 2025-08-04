@@ -1,7 +1,7 @@
-import { getUserProfile } from '@/app/lib/auth/utils'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@influencer-platform/ui'
 import { PlusCircle, Users, FileText, TrendingUp } from 'lucide-react'
 import Link from 'next/link'
+import { getUserProfile } from '@/app/lib/auth/utils'
 
 export default async function BrandDashboardPage() {
   const profile = await getUserProfile()

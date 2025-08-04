@@ -35,9 +35,9 @@ export function RecentActivity({ activities }: RecentActivityProps) {
               <div className="relative">
                 {influencer?.profile_image ? (
                   <img
-                    src={influencer.profile_image}
                     alt={influencer.full_name}
                     className="w-10 h-10 rounded-full object-cover"
+                    src={influencer.profile_image}
                   />
                 ) : (
                   <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">

@@ -2,10 +2,10 @@
 
 import { Card, CardContent, CardHeader, CardTitle, Button } from '@influencer-platform/ui'
 import { DollarSign, Calendar, Package, Check, X, CreditCard } from 'lucide-react'
-import { createClient } from '@/app/lib/supabase/client'
-import toast from 'react-hot-toast'
 import { useState } from 'react'
+import toast from 'react-hot-toast'
 import { PaymentModal } from './payment-modal'
+import { createClient } from '@/app/lib/supabase/client'
 
 interface DealProposalCardProps {
   proposal: any
@@ -138,20 +138,20 @@ export function DealProposalCard({
         {!isOwnProposal && proposal.status === 'pending' && (
           <div className="flex gap-2 pt-2">
             <Button
-              size="sm"
               className="flex-1"
-              onClick={() => handleResponse('accept')}
               disabled={isUpdating}
+              size="sm"
+              onClick={() => handleResponse('accept')}
             >
               <Check className="h-4 w-4 mr-1" />
               Accept
             </Button>
             <Button
+              className="flex-1"
+              disabled={isUpdating}
               size="sm"
               variant="outline"
-              className="flex-1"
               onClick={() => handleResponse('reject')}
-              disabled={isUpdating}
             >
               <X className="h-4 w-4 mr-1" />
               Decline
@@ -163,8 +163,8 @@ export function DealProposalCard({
         {userType === 'brand' && proposal.status === 'accepted' && !proposal.payment_completed && (
           <div className="pt-2 border-t">
             <Button
-              size="sm"
               className="w-full"
+              size="sm"
               onClick={() => setShowPaymentModal(true)}
             >
               <CreditCard className="h-4 w-4 mr-1" />
@@ -188,9 +188,9 @@ export function DealProposalCard({
     {/* Payment Modal */}
     {showPaymentModal && (
       <PaymentModal
+        dealProposal={proposal}
         isOpen={showPaymentModal}
         onClose={() => setShowPaymentModal(false)}
-        dealProposal={proposal}
         onSuccess={() => {
           setShowPaymentModal(false)
           // Refresh the page to update payment status

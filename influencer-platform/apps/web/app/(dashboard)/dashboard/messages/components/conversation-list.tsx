@@ -1,9 +1,9 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
-import { formatDistanceToNow } from 'date-fns'
 import { Avatar, AvatarFallback, AvatarImage } from '@influencer-platform/ui'
 import { Badge } from '@radix-ui/themes'
+import { formatDistanceToNow } from 'date-fns'
+import { useRouter } from 'next/navigation'
 
 interface ConversationListProps {
   conversations: any[]
@@ -54,10 +54,10 @@ export function ConversationList({
         return (
           <button
             key={conversation.id}
-            onClick={() => handleSelect(conversation.id)}
             className={`w-full p-4 flex items-start gap-3 hover:bg-muted/50 transition-colors border-b ${
               isSelected ? 'bg-muted/50' : ''
             }`}
+            onClick={() => handleSelect(conversation.id)}
           >
             {/* Avatar */}
             <Avatar className="flex-shrink-0">

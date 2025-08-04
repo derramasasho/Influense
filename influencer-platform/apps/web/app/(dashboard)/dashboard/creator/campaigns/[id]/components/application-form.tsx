@@ -1,15 +1,15 @@
 'use client'
 
-import { useState } from 'react'
-import { useRouter } from 'next/navigation'
-import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { z } from 'zod'
 import { Button } from '@influencer-platform/ui'
 import { Send, Plus, X, Link as LinkIcon } from 'lucide-react'
+import { useRouter } from 'next/navigation'
+import { useState } from 'react'
+import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
-import { createClient } from '@/app/lib/supabase/client'
+import { z } from 'zod'
 import type { Deliverable } from '@influencer-platform/database'
+import { createClient } from '@/app/lib/supabase/client'
 
 const applicationSchema = z.object({
   proposalText: z.string()
@@ -123,7 +123,7 @@ export function ApplicationForm({
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+    <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
       {/* Proposal */}
       <div>
         <label className="block text-sm font-medium mb-2">
@@ -131,9 +131,9 @@ export function ApplicationForm({
         </label>
         <textarea
           {...register('proposalText')}
-          rows={4}
           className="input-premium w-full resize-none"
           placeholder="Tell the brand why you're perfect for this campaign..."
+          rows={4}
         />
         <div className="flex justify-between items-center mt-1">
           <p className="text-xs text-muted-foreground">
@@ -154,8 +154,8 @@ export function ApplicationForm({
           type="number"
           {...register('proposedBudget', { valueAsNumber: true })}
           className="input-premium w-full"
-          min={minBudget}
           max={maxBudget}
+          min={minBudget}
         />
         <p className="text-xs text-muted-foreground mt-1">
           Budget range: {minBudget} - {maxBudget} BGN
@@ -179,18 +179,18 @@ export function ApplicationForm({
               <div className="relative flex-1">
                 <LinkIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                 <input
+                  className="input-premium w-full pl-10"
+                  placeholder="https://example.com/your-work"
                   type="url"
                   value={link}
                   onChange={(e) => updatePortfolioLink(index, e.target.value)}
-                  className="input-premium w-full pl-10"
-                  placeholder="https://example.com/your-work"
                 />
               </div>
               {portfolioLinks.length > 1 && (
                 <button
+                  className="p-2 rounded-xl hover:bg-muted transition-colors"
                   type="button"
                   onClick={() => removePortfolioLink(index)}
-                  className="p-2 rounded-xl hover:bg-muted transition-colors"
                 >
                   <X className="h-4 w-4" />
                 </button>
@@ -200,9 +200,9 @@ export function ApplicationForm({
         </div>
         {portfolioLinks.length < 5 && (
           <button
+            className="mt-2 text-sm text-primary hover:underline flex items-center"
             type="button"
             onClick={addPortfolioLink}
-            className="mt-2 text-sm text-primary hover:underline flex items-center"
           >
             <Plus className="h-3 w-3 mr-1" />
             Add another link
@@ -227,9 +227,9 @@ export function ApplicationForm({
 
       {/* Submit Button */}
       <Button
-        type="submit"
         className="w-full"
         disabled={isSubmitting}
+        type="submit"
       >
         {isSubmitting ? (
           <>

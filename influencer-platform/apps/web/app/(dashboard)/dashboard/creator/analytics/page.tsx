@@ -1,5 +1,3 @@
-import { createClient } from '@/app/lib/supabase/server'
-import { getUserProfile } from '@/app/lib/auth/utils'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@influencer-platform/ui'
 import { 
   TrendingUp, 
@@ -12,9 +10,11 @@ import {
   BarChart3,
   Activity
 } from 'lucide-react'
-import { PerformanceChart } from './components/performance-chart'
 import { CategoryBreakdown } from './components/category-breakdown'
+import { PerformanceChart } from './components/performance-chart'
 import { RecentPerformance } from './components/recent-performance'
+import { getUserProfile } from '@/app/lib/auth/utils'
+import { createClient } from '@/app/lib/supabase/server'
 
 export default async function CreatorAnalyticsPage() {
   const supabase = createClient()

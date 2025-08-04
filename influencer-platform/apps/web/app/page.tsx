@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { Button } from '@influencer-platform/ui'
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
 import { 
   ArrowRight, 
@@ -20,9 +20,9 @@ import {
   ChevronRight,
   Verified
 } from 'lucide-react'
-import Link from 'next/link'
 import Image from 'next/image'
-import { Button } from '@influencer-platform/ui'
+import Link from 'next/link'
+import { useState, useEffect } from 'react'
 
 export default function HomePage() {
   const [activeTab, setActiveTab] = useState<'brand' | 'creator'>('brand')
@@ -123,7 +123,6 @@ export default function HomePage() {
       <div className="fixed inset-0 -z-10">
         <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-primary/5" />
         <motion.div 
-          className="absolute inset-0"
           animate={{
             background: [
               'radial-gradient(circle at 20% 50%, rgba(99, 102, 241, 0.1) 0%, transparent 50%)',
@@ -131,23 +130,24 @@ export default function HomePage() {
               'radial-gradient(circle at 20% 50%, rgba(99, 102, 241, 0.1) 0%, transparent 50%)',
             ],
           }}
+          className="absolute inset-0"
           transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
         />
         {/* Floating orbs */}
         <motion.div
-          className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl"
           animate={{
             x: [0, 100, 0],
             y: [0, -100, 0],
           }}
+          className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl"
           transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
         />
         <motion.div
-          className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl"
           animate={{
             x: [0, -100, 0],
             y: [0, 100, 0],
           }}
+          className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl"
           transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
         />
       </div>
@@ -157,9 +157,9 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <motion.div 
+              animate={{ opacity: 1, x: 0 }}
               className="flex items-center space-x-2"
               initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5 }}
             >
               <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-purple-600 flex items-center justify-center">
@@ -171,13 +171,13 @@ export default function HomePage() {
             </motion.div>
             
             <motion.div 
+              animate={{ opacity: 1, x: 0 }}
               className="flex items-center space-x-4"
               initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
             >
               <Link href="/login">
-                <Button variant="ghost" className="hidden sm:inline-flex">
+                <Button className="hidden sm:inline-flex" variant="ghost">
                   Sign In
                 </Button>
               </Link>
@@ -200,8 +200,8 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, y: 20 }}
               transition={{ duration: 0.8 }}
             >
               <span className="inline-flex items-center px-4 py-1.5 rounded-full text-sm font-medium bg-primary/10 text-primary border border-primary/20 mb-6">
@@ -211,9 +211,9 @@ export default function HomePage() {
             </motion.div>
             
             <motion.h1 
+              animate={{ opacity: 1, y: 0 }}
               className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6"
               initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.1 }}
             >
               <span className="bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
@@ -226,9 +226,9 @@ export default function HomePage() {
             </motion.h1>
             
             <motion.p 
+              animate={{ opacity: 1, y: 0 }}
               className="text-xl text-muted-foreground max-w-3xl mx-auto mb-10"
               initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
               Connect with top Bulgarian influencers and global brands. 
@@ -236,19 +236,19 @@ export default function HomePage() {
             </motion.p>
 
             <motion.div 
+              animate={{ opacity: 1, y: 0 }}
               className="flex flex-col sm:flex-row items-center justify-center gap-4"
               initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.3 }}
             >
               <Link href="/signup?type=brand">
-                <Button size="lg" className="group bg-gradient-to-r from-primary to-purple-600 hover:from-primary/90 hover:to-purple-600/90 text-white shadow-xl shadow-primary/25 px-8">
+                <Button className="group bg-gradient-to-r from-primary to-purple-600 hover:from-primary/90 hover:to-purple-600/90 text-white shadow-xl shadow-primary/25 px-8" size="lg">
                   I'm a Brand
                   <ChevronRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </Link>
               <Link href="/signup?type=creator">
-                <Button size="lg" variant="outline" className="group border-2 hover:bg-primary/5 px-8">
+                <Button className="group border-2 hover:bg-primary/5 px-8" size="lg" variant="outline">
                   I'm a Creator
                   <Heart className="ml-2 h-5 w-5 group-hover:scale-110 transition-transform" />
                 </Button>
@@ -257,9 +257,9 @@ export default function HomePage() {
 
             {/* Trust badges */}
             <motion.div 
+              animate={{ opacity: 0.6 }}
               className="mt-12 flex items-center justify-center gap-8 opacity-60"
               initial={{ opacity: 0 }}
-              animate={{ opacity: 0.6 }}
               transition={{ duration: 0.8, delay: 0.4 }}
             >
               <div className="flex items-center gap-2">
@@ -286,11 +286,11 @@ export default function HomePage() {
             {stats.map((stat, index) => (
               <motion.div
                 key={stat.label}
+                className="relative group"
                 initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className="relative group"
+                whileInView={{ opacity: 1, y: 0 }}
               >
                 <div className="absolute inset-0 bg-gradient-to-r opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl blur-xl -z-10 ${stat.color}" />
                 <div className="relative bg-card border border-border/50 rounded-2xl p-6 text-center hover:border-primary/50 transition-all duration-300 hover:shadow-xl hover:shadow-primary/10 hover:-translate-y-1">
@@ -314,9 +314,9 @@ export default function HomePage() {
           <motion.div 
             className="text-center mb-12"
             initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
+            whileInView={{ opacity: 1, y: 0 }}
           >
             <h2 className="text-3xl sm:text-4xl font-bold mb-4">
               Everything You Need to{' '}
@@ -334,27 +334,27 @@ export default function HomePage() {
             <motion.div 
               className="inline-flex p-1 bg-muted rounded-full"
               initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5 }}
               viewport={{ once: true }}
+              whileInView={{ opacity: 1, scale: 1 }}
             >
               <button
-                onClick={() => setActiveTab('brand')}
                 className={`px-6 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
                   activeTab === 'brand'
                     ? 'bg-primary text-white shadow-lg shadow-primary/25'
                     : 'text-muted-foreground hover:text-foreground'
                 }`}
+                onClick={() => setActiveTab('brand')}
               >
                 For Brands
               </button>
               <button
-                onClick={() => setActiveTab('creator')}
                 className={`px-6 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
                   activeTab === 'creator'
                     ? 'bg-primary text-white shadow-lg shadow-primary/25'
                     : 'text-muted-foreground hover:text-foreground'
                 }`}
+                onClick={() => setActiveTab('creator')}
               >
                 For Creators
               </button>
@@ -365,19 +365,19 @@ export default function HomePage() {
           <AnimatePresence mode="wait">
             <motion.div 
               key={activeTab}
-              className="grid md:grid-cols-3 gap-8"
-              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
+              className="grid md:grid-cols-3 gap-8"
               exit={{ opacity: 0, y: -20 }}
+              initial={{ opacity: 0, y: 20 }}
               transition={{ duration: 0.5 }}
             >
               {features[activeTab].map((feature, index) => (
                 <motion.div
                   key={feature.title}
-                  initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
                   className="group relative"
+                  initial={{ opacity: 0, y: 20 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
                 >
                   <div className="absolute inset-0 bg-gradient-to-r ${feature.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-300 rounded-2xl blur-xl" />
                   <div className="relative bg-card border border-border/50 rounded-2xl p-8 hover:border-primary/50 transition-all duration-300 hover:shadow-xl hover:shadow-primary/10 hover:-translate-y-1">
@@ -400,9 +400,9 @@ export default function HomePage() {
           <motion.div 
             className="text-center mb-12"
             initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
+            whileInView={{ opacity: 1, y: 0 }}
           >
             <h2 className="text-3xl sm:text-4xl font-bold mb-4">
               Loved by{' '}
@@ -419,18 +419,18 @@ export default function HomePage() {
             {testimonials.map((testimonial, index) => (
               <motion.div
                 key={testimonial.name}
+                className="group"
                 initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className="group"
+                whileInView={{ opacity: 1, y: 0 }}
               >
                 <div className="bg-card border border-border/50 rounded-2xl p-6 hover:border-primary/50 transition-all duration-300 hover:shadow-xl hover:shadow-primary/10 hover:-translate-y-1">
                   <div className="flex items-center mb-4">
                     <img
-                      src={testimonial.avatar}
                       alt={testimonial.name}
                       className="w-12 h-12 rounded-full mr-4"
+                      src={testimonial.avatar}
                     />
                     <div>
                       <div className="font-semibold">{testimonial.name}</div>
@@ -468,9 +468,9 @@ export default function HomePage() {
           <motion.div 
             className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-purple-600 to-pink-600 p-12 text-center"
             initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
+            whileInView={{ opacity: 1, scale: 1 }}
           >
             {/* Animated background pattern */}
             <div className="absolute inset-0 opacity-20">
@@ -481,11 +481,11 @@ export default function HomePage() {
             </div>
             
             <motion.div
+              className="relative z-10"
               initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
               viewport={{ once: true }}
-              className="relative z-10"
+              whileInView={{ opacity: 1, y: 0 }}
             >
               <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
                 Ready to Transform Your Marketing?
@@ -494,7 +494,7 @@ export default function HomePage() {
                 Join thousands of brands and creators building authentic partnerships
               </p>
               <Link href="/signup">
-                <Button size="lg" className="bg-white text-primary hover:bg-white/90 shadow-2xl px-8">
+                <Button className="bg-white text-primary hover:bg-white/90 shadow-2xl px-8" size="lg">
                   Start Your Journey
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
@@ -516,25 +516,25 @@ export default function HomePage() {
             </div>
             
             <div className="flex items-center space-x-6 text-sm text-muted-foreground">
-              <Link href="/privacy" className="hover:text-foreground transition-colors">
+              <Link className="hover:text-foreground transition-colors" href="/privacy">
                 Privacy
               </Link>
-              <Link href="/terms" className="hover:text-foreground transition-colors">
+              <Link className="hover:text-foreground transition-colors" href="/terms">
                 Terms
               </Link>
-              <Link href="/contact" className="hover:text-foreground transition-colors">
+              <Link className="hover:text-foreground transition-colors" href="/contact">
                 Contact
               </Link>
             </div>
             
             <div className="flex items-center space-x-4 mt-4 md:mt-0">
-              <Link href="#" className="text-muted-foreground hover:text-foreground transition-colors">
+              <Link className="text-muted-foreground hover:text-foreground transition-colors" href="#">
                 <Instagram className="h-5 w-5" />
               </Link>
-              <Link href="#" className="text-muted-foreground hover:text-foreground transition-colors">
+              <Link className="text-muted-foreground hover:text-foreground transition-colors" href="#">
                 <Youtube className="h-5 w-5" />
               </Link>
-              <Link href="#" className="text-muted-foreground hover:text-foreground transition-colors">
+              <Link className="text-muted-foreground hover:text-foreground transition-colors" href="#">
                 <Twitter className="h-5 w-5" />
               </Link>
             </div>

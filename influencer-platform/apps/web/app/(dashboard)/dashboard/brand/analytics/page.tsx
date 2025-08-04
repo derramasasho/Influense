@@ -1,5 +1,3 @@
-import { createClient } from '@/app/lib/supabase/server'
-import { getUserProfile } from '@/app/lib/auth/utils'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@influencer-platform/ui'
 import { 
   TrendingUp, 
@@ -13,8 +11,10 @@ import {
 } from 'lucide-react'
 import { CampaignPerformanceChart } from './components/campaign-performance-chart'
 import { InfluencerDistribution } from './components/influencer-distribution'
-import { TopCampaigns } from './components/top-campaigns'
 import { RecentActivity } from './components/recent-activity'
+import { TopCampaigns } from './components/top-campaigns'
+import { getUserProfile } from '@/app/lib/auth/utils'
+import { createClient } from '@/app/lib/supabase/server'
 
 export default async function BrandAnalyticsPage() {
   const supabase = createClient()

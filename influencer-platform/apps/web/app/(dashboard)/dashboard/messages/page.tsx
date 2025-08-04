@@ -1,8 +1,8 @@
-import { createClient } from '@/app/lib/supabase/server'
-import { getUserProfile } from '@/app/lib/auth/utils'
 import { ConversationList } from './components/conversation-list'
-import { MessageThread } from './components/message-thread'
 import { EmptyState } from './components/empty-state'
+import { MessageThread } from './components/message-thread'
+import { getUserProfile } from '@/app/lib/auth/utils'
+import { createClient } from '@/app/lib/supabase/server'
 
 export default async function MessagesPage({
   searchParams,
@@ -85,8 +85,8 @@ export default async function MessagesPage({
         <ConversationList
           conversations={allConversations}
           selectedId={selectedConversationId}
-          userType={profile.role}
           userId={userProfile.id}
+          userType={profile.role}
         />
       </div>
 
@@ -95,8 +95,8 @@ export default async function MessagesPage({
         {selectedConversation ? (
           <MessageThread
             conversation={selectedConversation}
-            userType={profile.role}
             userId={userProfile.id}
+            userType={profile.role}
           />
         ) : (
           <EmptyState />

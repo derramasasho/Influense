@@ -1,6 +1,5 @@
-import { getUserProfile } from '@/app/lib/auth/utils'
-import { createClient } from '@/app/lib/supabase/server'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@influencer-platform/ui'
+import { formatDistanceToNow } from 'date-fns'
 import { 
   DollarSign, 
   TrendingUp, 
@@ -14,7 +13,8 @@ import {
   AlertCircle
 } from 'lucide-react'
 import Link from 'next/link'
-import { formatDistanceToNow } from 'date-fns'
+import { getUserProfile } from '@/app/lib/auth/utils'
+import { createClient } from '@/app/lib/supabase/server'
 
 export default async function CreatorDashboardPage() {
   const profile = await getUserProfile()
@@ -209,7 +209,7 @@ export default async function CreatorDashboardPage() {
                 <p className="text-sm text-muted-foreground">
                   No applications yet. Start browsing campaigns!
                 </p>
-                <Link href="/dashboard/creator/campaigns" className="btn-premium mt-4">
+                <Link className="btn-premium mt-4" href="/dashboard/creator/campaigns">
                   Browse Campaigns
                 </Link>
               </div>
@@ -228,29 +228,29 @@ export default async function CreatorDashboardPage() {
           <CardContent>
             <div className="grid grid-cols-2 gap-3">
               <Link
-                href="/dashboard/creator/campaigns"
                 className="p-4 rounded-xl bg-primary/10 hover:bg-primary/20 transition-colors text-center"
+                href="/dashboard/creator/campaigns"
               >
                 <div className="text-2xl mb-2">🔍</div>
                 <div className="text-sm font-medium">Browse Campaigns</div>
               </Link>
               <Link
-                href="/dashboard/creator/profile"
                 className="p-4 rounded-xl bg-purple-500/10 hover:bg-purple-500/20 transition-colors text-center"
+                href="/dashboard/creator/profile"
               >
                 <div className="text-2xl mb-2">✏️</div>
                 <div className="text-sm font-medium">Update Profile</div>
               </Link>
               <Link
-                href="/dashboard/creator/earnings"
                 className="p-4 rounded-xl bg-green-500/10 hover:bg-green-500/20 transition-colors text-center"
+                href="/dashboard/creator/earnings"
               >
                 <div className="text-2xl mb-2">💰</div>
                 <div className="text-sm font-medium">View Earnings</div>
               </Link>
               <Link
-                href="/dashboard/creator/analytics"
                 className="p-4 rounded-xl bg-blue-500/10 hover:bg-blue-500/20 transition-colors text-center"
+                href="/dashboard/creator/analytics"
               >
                 <div className="text-2xl mb-2">📊</div>
                 <div className="text-sm font-medium">Analytics</div>

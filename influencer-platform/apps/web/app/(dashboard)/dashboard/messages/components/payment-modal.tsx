@@ -1,16 +1,16 @@
 'use client'
 
-import { useState } from 'react'
+import { Card, Button } from '@influencer-platform/ui'
 import * as Dialog from '@radix-ui/react-dialog'
-import { loadStripe } from '@stripe/stripe-js'
 import {
   Elements,
   PaymentElement,
   useStripe,
   useElements,
 } from '@stripe/react-stripe-js'
-import { Card, Button } from '@influencer-platform/ui'
+import { loadStripe } from '@stripe/stripe-js'
 import { X, CreditCard, Loader2 } from 'lucide-react'
+import { useState } from 'react'
 import toast from 'react-hot-toast'
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!)
@@ -90,7 +90,6 @@ export function PaymentModal({ isOpen, onClose, dealProposal, onSuccess }: Payme
 
             {clientSecret ? (
               <Elements
-                stripe={stripePromise}
                 options={{
                   clientSecret,
                   appearance: {
@@ -105,11 +104,12 @@ export function PaymentModal({ isOpen, onClose, dealProposal, onSuccess }: Payme
                     },
                   },
                 }}
+                stripe={stripePromise}
               >
                 <CheckoutForm 
-                  onSuccess={onSuccess} 
-                  isLoading={isLoading}
+                  isLoading={isLoading} 
                   setIsLoading={setIsLoading}
+                  onSuccess={onSuccess}
                 />
               </Elements>
             ) : (
@@ -167,13 +167,13 @@ function CheckoutForm({
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
+    <form className="space-y-4" onSubmit={handleSubmit}>
       <PaymentElement />
       
       <Button
-        type="submit"
         className="w-full"
         disabled={!stripe || !elements || isLoading}
+        type="submit"
       >
         {isLoading ? (
           <>

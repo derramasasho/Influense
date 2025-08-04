@@ -1,8 +1,4 @@
-import { createClient } from '@/app/lib/supabase/server'
-import { getUserProfile } from '@/app/lib/auth/utils'
-import { notFound } from 'next/navigation'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle, Button } from '@influencer-platform/ui'
-import { Avatar, AvatarFallback, AvatarImage } from '@influencer-platform/ui'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle, Button , Avatar, AvatarFallback, AvatarImage } from '@influencer-platform/ui'
 import { 
   Users,
   Instagram,
@@ -16,7 +12,10 @@ import {
   MessageSquare
 } from 'lucide-react'
 import Link from 'next/link'
+import { notFound } from 'next/navigation'
 import { ApplicationActions } from './components/application-actions'
+import { getUserProfile } from '@/app/lib/auth/utils'
+import { createClient } from '@/app/lib/supabase/server'
 
 export default async function CampaignApplicationsPage({ 
   params 
@@ -71,8 +70,8 @@ export default async function CampaignApplicationsPage({
       {/* Header */}
       <div>
         <Link 
-          href="/dashboard/brand/campaigns"
           className="text-sm text-muted-foreground hover:text-foreground mb-4 inline-flex items-center"
+          href="/dashboard/brand/campaigns"
         >
           <ArrowLeft className="h-4 w-4 mr-1" />
           Back to campaigns
@@ -166,10 +165,10 @@ export default async function CampaignApplicationsPage({
                         <div className="flex items-center gap-4 mt-2 text-sm">
                           {influencer.instagram_handle && (
                             <a 
-                              href={`https://instagram.com/${influencer.instagram_handle}`}
-                              target="_blank"
-                              rel="noopener noreferrer"
                               className="flex items-center hover:text-primary"
+                              href={`https://instagram.com/${influencer.instagram_handle}`}
+                              rel="noopener noreferrer"
+                              target="_blank"
                             >
                               <Instagram className="h-4 w-4 mr-1" />
                               {influencer.instagram_followers?.toLocaleString() || 0}
@@ -177,10 +176,10 @@ export default async function CampaignApplicationsPage({
                           )}
                           {influencer.youtube_handle && (
                             <a 
-                              href={`https://youtube.com/@${influencer.youtube_handle}`}
-                              target="_blank"
-                              rel="noopener noreferrer"
                               className="flex items-center hover:text-primary"
+                              href={`https://youtube.com/@${influencer.youtube_handle}`}
+                              rel="noopener noreferrer"
+                              target="_blank"
                             >
                               <Youtube className="h-4 w-4 mr-1" />
                               {influencer.youtube_subscribers?.toLocaleString() || 0}
@@ -252,10 +251,10 @@ export default async function CampaignApplicationsPage({
                         {application.portfolio_links.map((link: string, index: number) => (
                           <a
                             key={index}
-                            href={link}
-                            target="_blank"
-                            rel="noopener noreferrer"
                             className="inline-flex items-center gap-1 text-sm text-primary hover:underline"
+                            href={link}
+                            rel="noopener noreferrer"
+                            target="_blank"
                           >
                             <ExternalLink className="h-3 w-3" />
                             View work {index + 1}
